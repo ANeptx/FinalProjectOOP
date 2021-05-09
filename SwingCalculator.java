@@ -6,8 +6,8 @@ import java.awt.event.*;
 import java.lang.*;
 
 public class SwingCalculator extends JFrame {
-    private int operand1;
-    private int operand2;
+    private double operand1;
+    private double operand2;
     private String operator = "";
     private boolean isOp2 = false;
 
@@ -17,7 +17,7 @@ public class SwingCalculator extends JFrame {
         super("Swing Calculator");
 
         // 1. create components
-        JTextField txtResult = new JTextField("0");
+        JTextField txtResult = new JTextField("");
 
         JPanel pnlButtons = new JPanel();
         pnlButtons.setLayout(new GridLayout(6, 5, 2, 2));
@@ -31,11 +31,11 @@ public class SwingCalculator extends JFrame {
                     String number = txtResult.getText() + btnThis.getText();
 
                     if (!isOp2) {
-                        operand1 = Integer.parseInt(number);
-                        txtResult.setText(Integer.toString(operand1));
+                        operand1 = Double.parseDouble(number);
+                        txtResult.setText(String.valueOf(number));
                     } else {
-                        operand2 = Integer.parseInt(number);
-                        txtResult.setText(Integer.toString(operand2));
+                        operand2 = Double.parseDouble(number);
+                        txtResult.setText(String.valueOf(number));
                     }
                 }
             });
@@ -194,21 +194,29 @@ public class SwingCalculator extends JFrame {
 
         JButton btnPi = new JButton("Pi");
         btnPi.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JButton btnThis = (JButton) e.getSource();
-                operator = btnThis.getText();
-                isOp2 = true;
-                txtResult.setText("");
-            }
+                public void actionPerformed(ActionEvent e) {
+                    String number = txtResult.getText() + String.valueOf(Math.PI);
+                    if (!isOp2) {
+                        operand1 = Double.parseDouble(number);
+                        txtResult.setText(String.valueOf(number));
+                    } else {
+                        operand1 = Double.parseDouble(number);
+                       txtResult.setText(String.valueOf(number));
+                    }
+                }
         });
         
         JButton btnEx = new JButton("e");
         btnEx.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JButton btnThis = (JButton) e.getSource();
-                operator = btnThis.getText();
-                isOp2 = true;
-                txtResult.setText("");
+                String number = txtResult.getText() + String.valueOf(Math.E);
+                if (!isOp2) {
+                    operand1 = Double.parseDouble(number);
+                    txtResult.setText(String.valueOf(number));
+                } else {
+                    operand1 = Double.parseDouble(number);
+                   txtResult.setText(String.valueOf(number));
+                }
             }
         });
 
@@ -218,42 +226,42 @@ public class SwingCalculator extends JFrame {
                 double result = 0;
 
                 if (operator == "+")
-                    result = operand1 + operand2;
+                    txtResult.setText(String.valueOf(operand1 + operand2));
                 else if (operator == "-")
-                    result = operand1 - operand2;
+                    txtResult.setText(String.valueOf(operand1 - operand2));
                 else if (operator == "*")
-                    result = operand1 * operand2;
+                    txtResult.setText(String.valueOf(operand1 * operand2));
                 else if (operator == "/")
-                    result = operand1 / operand2;
+                    txtResult.setText(String.valueOf(operand1 / operand2));
                 else if (operator == "x^2")
-                    result = Math.pow(operand1,2); 
+                    txtResult.setText(String.valueOf(Math.pow(operand1,2))); 
                 else if (operator == "x^y")
-                    result = Math.pow(operand1,operand2);
+                    txtResult.setText(String.valueOf(Math.pow(operand1,operand2)));
                 else if (operator == "1/x")
-                    result = Math.pow(operand1,-1);
+                    txtResult.setText(String.valueOf(Math.pow(operand1,-1)));
                 else if (operator == "e^x")
-                    result = Math.exp(operand1);
-                else if (operator == "e")
-                    result = Math.E;
+                    txtResult.setText(String.valueOf(Math.exp(operand1)));
+                // else if (operator == "e")
+                //     txtResult.setText(String.valueOf(Math.E));
                 else if (operator == "sqrt")
-                    result = Math.sqrt(operand1);
-                else if (operator == "Pi")
-                    result = Math.PI;
+                    txtResult.setText(String.valueOf(Math.sqrt(operand1)));
+                // else if (operator == "Pi")
+                //     txtResult.setText(String.valueOf(Math.PI));
                 else if (operator == "log")
-                  result = Math.log10(operand1);
+                    txtResult.setText(String.valueOf(Math.log10(operand1)));
                 else if (operator == "ln")
-                  result = Math.log(operand1);
+                    txtResult.setText(String.valueOf(Math.log(operand1)));
                 else if (operator == "sin")
-                  result = Math.sin(Math.toRadians(operand1));
+                    txtResult.setText(String.valueOf(Math.sin(Math.toRadians(operand1))));
                 else if (operator == "cos")
-                  result = Math.cos(Math.toRadians(operand1));
+                    txtResult.setText(String.valueOf(Math.cos(Math.toRadians(operand1))));
                 else if (operator == "tan")
-                  result = Math.tan(Math.toRadians(operand1));
+                    txtResult.setText(String.valueOf(Math.tan(Math.toRadians(operand1))));
                 else
                     result = 0;
+
                 
-                txtResult.setText(Double.toString(result));
-                operand1 = (int) result;
+                operand1 = result;
                 operand2 = 0;
                 isOp2 = false;
             }
